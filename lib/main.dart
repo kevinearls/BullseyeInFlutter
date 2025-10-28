@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
+  runApp(const BullseyeApp());
+}
+
+class BullseyeApp extends StatelessWidget {
+  const BullseyeApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight
+    ]);
+    return const MaterialApp(
       title: 'Bullseye',
       home: GamePage(),
-    ),
-  );
+    );
+  }
 }
 
 class GamePage extends StatefulWidget {
@@ -26,15 +38,14 @@ class _GamePageState extends State<GamePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text('Bullseye', style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.green
+                fontWeight: FontWeight.bold,
+                color: Colors.pink
             ),
             ),
             TextButton(
               child: Text('Hit me', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 _showAlert(context);
-                // printHello();
               },
             ),
           ],
@@ -48,20 +59,20 @@ class _GamePageState extends State<GamePage> {
       child: const Text('Awesome!'),
       onPressed: () {
         Navigator.of(context).pop();
-    
+
         print('Awesome pressed! ');
       },
     );
     showDialog(
-      context: context, 
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Hello there!'),
-          content: const Text('This is my first pop-up'),
-          actions: [okButton],
-          elevation: 5,
-        );
-      }
-      );
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Hello there!'),
+            content: const Text('This is my first pop-up'),
+            actions: [okButton],
+            elevation: 5,
+          );
+        }
+    );
   }
 }
