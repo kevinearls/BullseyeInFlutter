@@ -4,10 +4,6 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Bullseye',
-      // home: Scaffold(
-      //   appBar: AppBar(title: const Text('Bullseye')),
-      //   body: const Center(child: Text('Hello Earthling!')),
-      // ),
       home: GamePage(),
     ),
   );
@@ -39,7 +35,7 @@ class _GamePageState extends State<GamePage> {
               child: Text('Hit me', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 _alertIsVisible = true;
-                showAlert(context);
+                _showAlert(context);
                 // printHello();
               },
             ),
@@ -49,7 +45,7 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  void showAlert(BuildContext context) {
+  void _showAlert(BuildContext context) {
     var okButton = TextButton(
       child: const Text('Awesome!'),
       onPressed: () {
