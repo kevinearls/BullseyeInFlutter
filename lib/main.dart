@@ -34,13 +34,13 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  late GameModel _model;  
+  late GameModel _model;
 
   @override
   void initState() {
     super.initState();
     _model = GameModel(50);
-  }  
+  }
 
 
   @override
@@ -58,11 +58,11 @@ class _GamePageState extends State<GamePage> {
                 _showAlert(context);
               },
             ),
-           Score(totalScore: _model.totalScore, round: _model.round)
+            Score(totalScore: _model.totalScore, round: _model.round)
           ],
-          
+
         ),
-        
+
       ),
     );
   }

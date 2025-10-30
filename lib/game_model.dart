@@ -11,6 +11,5 @@ class GameModel {
   GameModel(this.target,
       [this.current = sliderStart,
       this.totalScore = scoreStart,
-      this.round = roundStart]);
-
+        this.round = roundStart]);
 }

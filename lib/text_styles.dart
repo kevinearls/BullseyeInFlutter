@@ -8,5 +8,5 @@ class LabelTextStyle {
       color: Colors.green,
       letterSpacing: 2.0,
     );
-}
+  }
 }
