@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'dart:math';
+import 'dart:core';
+
 import 'control.dart';
 import 'prompt.dart';
 import 'game_model.dart';
@@ -39,9 +42,8 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    _model = GameModel(50);
+    _model = GameModel(_newTargetValue());
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +52,16 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Prompt(targetValue: 100,),
+            Prompt(targetValue: _model.target,),
             Control(model: _model,),
             TextButton(
               child: Text('Hit me', style: TextStyle(color: Colors.blue)),
               onPressed: () {
                 _showAlert(context);
+
               },
             ),
-            Score(totalScore: _model.totalScore, round: _model.round)
+            Score(totalScore: _model.totalScore, round: _model.round, onStartOver: _startNewGame,)
           ],
 
         ),
@@ -67,21 +70,70 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
+  int _pointsForCurrentRound(){
+    const maximumScore = 100;
+    var difference = _differenceAmount();
+    var bonus = 0;
+
+    if (difference == 0) {
+      bonus = 100;
+    } else if (difference == 1) {
+      bonus = 50;
+    }
+
+    var points = maximumScore - difference + bonus;
+    return points;
+  }
+
+  int _differenceAmount() => (_model.target - _model.current).abs();
+  int _newTargetValue() => Random().nextInt(100) + 1;
+
+  void _startNewGame() {
+    setState(() {
+      _model.totalScore = GameModel.scoreStart;
+      _model.round = GameModel.roundStart;
+      _model.current = GameModel.sliderStart;
+      _model.target = _newTargetValue();
+    });
+  }
+
+  String _alertTitle() {
+    var difference = _differenceAmount();
+
+    String title;
+    if (difference == 0) {
+      title = "Perfect!";
+    } else if (difference < 5) {
+      title = "You almost had it!";
+    } else if (difference <= 10) {
+      title = "Not bad.";
+    } else {
+      title = "Are you even trying?";
+    }
+    return title;
+  }
+
   void _showAlert(BuildContext context) {
     var okButton = TextButton(
       child: const Text('Awesome!'),
       onPressed: () {
         Navigator.of(context).pop();
-
-        print('Awesome pressed! ');
+        setState(() {
+          _model.totalScore += _pointsForCurrentRound();
+          _model.target = _newTargetValue();
+          _model.round++;
+        });
       },
     );
     showDialog(
         context: context,
         builder: (BuildContext context) {
+          var _difference = _differenceAmount();
+
           return AlertDialog(
-            title: const Text('Hello there!'),
-            content: Text('The slider\'s value is ${_model.current}'),
+            title: Text(_alertTitle()),
+            content: Text('The slider\'s value is ${_model.current}\n'
+                'You scored ${_pointsForCurrentRound()} points this round'),
             actions: [okButton],
             elevation: 5,
           );
