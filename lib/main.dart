@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'prompt.dart';
 import 'control.dart';
+import 'score.dart';
 
 void main() {
   runApp(const BullseyeApp());
@@ -47,24 +48,7 @@ class _GamePageState extends State<GamePage> {
                 _showAlert(context);
               },
             ),
-            Row (
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () { 
-                    _showAlert(context);
-                  }, 
-                  child: const Text('Restart')),
-                const Text('Score: '),
-                const Text('99'),
-                const Text('Round!'),
-                const Text('3!'),
-                TextButton(
-                  onPressed: () { 
-                    _showAlert(context);
-                  }, 
-                  child: const Text('Info')),
-            ],)  
+           const Score(totalScore: 999, round: 3,)
           ],
           
         ),
