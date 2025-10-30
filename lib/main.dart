@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'prompt.dart';
 
 void main() {
   runApp(const BullseyeApp());
@@ -37,11 +38,7 @@ class _GamePageState extends State<GamePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('Bullseye', style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.pink
-            ),
-            ),
+            const Prompt(targetValue: 100,),
             TextButton(
               child: Text('Hit me', style: TextStyle(color: Colors.blue)),
               onPressed: () {
