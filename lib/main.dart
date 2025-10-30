@@ -47,8 +47,28 @@ class _GamePageState extends State<GamePage> {
                 _showAlert(context);
               },
             ),
+            Row (
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () { 
+                    _showAlert(context);
+                  }, 
+                  child: const Text('Restart')),
+                const Text('Score: '),
+                const Text('99'),
+                const Text('Round!'),
+                const Text('3!'),
+                TextButton(
+                  onPressed: () { 
+                    _showAlert(context);
+                  }, 
+                  child: const Text('Info')),
+            ],)  
           ],
+          
         ),
+        
       ),
     );
   }
