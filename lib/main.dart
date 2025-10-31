@@ -22,6 +22,7 @@ class BullseyeApp extends StatelessWidget {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight
     ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     return const MaterialApp(
       title: 'Bullseye',
       home: GamePage(),
@@ -47,25 +48,33 @@ class _GamePageState extends State<GamePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Prompt(targetValue: _model.target,),
-            Control(model: _model,),
-            TextButton(
-              child: Text('Hit me', style: TextStyle(color: Colors.blue)),
-              onPressed: () {
-                _showAlert(context);
-
-              },
-            ),
-            Score(totalScore: _model.totalScore, round: _model.round, onStartOver: _startNewGame,)
-          ],
-
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        image: DecorationImage(image: AssetImage('images/background.png'),
+        fit: BoxFit.cover,
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Prompt(targetValue: _model.target,),
+              Control(model: _model,),
+              TextButton(
+                child: Text('Hit me', style: TextStyle(color: Colors.blue)),
+                onPressed: () {
+                  _showAlert(context);
+      
+                },
+              ),
+              Score(totalScore: _model.totalScore, round: _model.round, onStartOver: _startNewGame,)
+            ],
+      
+          ),
+      
         ),
-
       ),
     );
   }
@@ -128,8 +137,6 @@ class _GamePageState extends State<GamePage> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          var _difference = _differenceAmount();
-
           return AlertDialog(
             title: Text(_alertTitle()),
             content: Text('The slider\'s value is ${_model.current}\n'
