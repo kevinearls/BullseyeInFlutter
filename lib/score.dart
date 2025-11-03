@@ -18,13 +18,15 @@ class Score extends StatelessWidget {
           icon: Icons.refresh, 
           onPressed: () {},
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 32, right: 32),
-          child: Column(
-            children: <Widget>[
-              Text('Score: ', style: LabelTextStyle.bodyText1(context)),
-              Text('$totalScore', style: ScoreNumberTextStyle.headline4(context),),
-            ],
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 32, right: 32),
+            child: Column(
+              children: <Widget>[
+                Text('Score: ', style: LabelTextStyle.bodyText1(context)),
+                Text('$totalScore', style: ScoreNumberTextStyle.headline4(context),),
+              ],
+            ),
           ),
         ),
         Padding(

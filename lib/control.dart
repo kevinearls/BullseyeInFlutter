@@ -22,15 +22,26 @@ class _ControlState extends State<Control> {
           child: Text('1', style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         Expanded(
-          child: Slider(
-            value: widget.model.current.toDouble(),
-            onChanged: (newValue) {
-              setState(() {
-                widget.model.current = newValue.toInt();
-              });
-            },
-            min: 1.0,
-            max: 100.0,
+          child: SliderTheme(
+            data: SliderTheme.of(context).copyWith(
+              activeTrackColor: Colors.red[700],
+              inactiveTrackColor: Colors.red[700],
+              trackShape: const RoundedRectSliderTrackShape(),
+              trackHeight: 8.0,
+              thumbColor: Colors.redAccent,
+              overlayColor: Colors.red.withAlpha(32),
+              overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
+            ),
+            child: Slider(
+              value: widget.model.current.toDouble(),
+              onChanged: (newValue) {
+                setState(() {
+                  widget.model.current = newValue.toInt();
+                });
+              },
+              min: 1.0,
+              max: 100.0,
+            ),
           ),
         ),
         const Padding(
