@@ -8,6 +8,8 @@ import 'control.dart';
 import 'prompt.dart';
 import 'game_model.dart';
 import 'score.dart';
+import 'hitme_button.dart';
+import 'styled_button.dart';
 
 void main() {
   runApp(const BullseyeApp());
@@ -62,18 +64,16 @@ class _GamePageState extends State<GamePage> {
             children: <Widget>[
               Prompt(targetValue: _model.target,),
               Control(model: _model,),
-              TextButton(
-                child: Text('Hit me', style: TextStyle(color: Colors.blue)),
+              HitMeButton(
+                text: 'HIT ME',
                 onPressed: () {
                   _showAlert(context);
-      
                 },
               ),
               Score(totalScore: _model.totalScore, round: _model.round, onStartOver: _startNewGame,)
             ],
       
           ),
-      
         ),
       ),
     );
@@ -123,8 +123,8 @@ class _GamePageState extends State<GamePage> {
   }
 
   void _showAlert(BuildContext context) {
-    var okButton = TextButton(
-      child: const Text('Awesome!'),
+    var okButton = StyledButton(
+      icon: Icons.close,
       onPressed: () {
         Navigator.of(context).pop();
         setState(() {
